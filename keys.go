@@ -1,4 +1,4 @@
-package sider
+package main
 
 var keys = make(map[string]string)
 
