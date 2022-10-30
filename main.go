@@ -1,5 +1,0 @@
-package sider
-
-func main() {
-	
-}
