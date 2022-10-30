@@ -9,36 +9,65 @@ Sider is a in-memory database with persistence option. This is a personal projec
 - Backup **lists** and **keys** in JSON files.
 - Import last backup when starting Sider again
 
-# How to use Sider?
+# How to use Sider?
 
 1. Go to your project directory: `cd ~/my-project`
 2. Install dependency with `go get -u github.com/jaavier/sider`
 3. Import in your code `import "github.com/jaavier/sider"`
 
-# Add Key
-`sider.AddKey(key string, value string)`
+
+# Add Key
+
+```golang
+sider.AddKey(key string, value string) bool
+```
 
 # Read Key
-`sider.ReadKey(key string)`
+```golang
+sider.ReadKey(key string) interface{}
+```
 
 # Push an item at left
-`sider.LPush(listName string, value string)`
+```golang
+sider.LPush(listName string, value string) bool
+```
 
 # Push an item at right
-`sider.RPush(listName string, value string)`
+```golang
+sider.RPush(listName string, value string) bool
+```
+
+# Read List
+```golang
+sider.ReadList(listName string) []string
+```
+
+# Expire Key
+```golang
+sider.ExpireKey(key string, timestamp int64) bool
+```
+
+# Expire List
+```golang
+sider.ExpireList(listName string, timestamp int64) bool
+```
 
 # Pop list
+
 Pop at right
-`sider.Pop(listName string)`
+```golang
+sider.Pop(listName string) string
+```
 
 Pop at left
-`sider.Pop(listName string, "left")`
+```golang
+sider.Pop(listName string, "left") string
+```
 
 
 # TODO
 
 - Add function to reverse lists
 - Add function to find elements in lists
-- Add function to check TTL of lists or keys
 - Add os.Args to give the option to don't persist data
 
