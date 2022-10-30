@@ -1,8 +1,9 @@
 package tests
 
 import (
-	"app/sider"
 	"testing"
+
+	"github.com/jaavier/sider"
 )
 
 

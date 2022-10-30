@@ -1,4 +1,4 @@
-package sider
+package main
 
 import (
 	"encoding/json"
