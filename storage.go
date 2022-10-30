@@ -19,8 +19,8 @@ func SaveFile(file string, content interface{}) bool {
 }
 
 func ImportData() bool {
-	listsContent, errLists := ioutil.ReadFile(pwd + "/sider/db/lists.json")
-	keysContent, errKeys := ioutil.ReadFile(pwd + "/sider/db/keys.json")
+	listsContent, errLists := ioutil.ReadFile(pwd + "/db/lists.json")
+	keysContent, errKeys := ioutil.ReadFile(pwd + "/db/keys.json")
 	
 	if errLists != nil || errKeys != nil {
 		return false
@@ -41,7 +41,7 @@ func ImportData() bool {
 func SaveData() {
 	for {
 		time.Sleep(2 * time.Second)
-		SaveFile(pwd + "/sider/db/lists.json", lists)
-		SaveFile(pwd + "/sider/db/keys.json", keys)
+		SaveFile(pwd + "/db/lists.json", lists)
+		SaveFile(pwd + "/db/keys.json", keys)
 	}
 }
