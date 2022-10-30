@@ -25,11 +25,11 @@ func TestLists(t *testing.T) {
 
 	t.Run("Test RPush", func(t *testing.T) {
 		var key string = "my-list"
-		var newKey string = "0"
-		sider.RPush(key, newKey)
+		var newItem string = "0"
+		sider.RPush(key, newItem)
 		var list []string = sider.ReadList(key)
-		if list[len(list)-1] != newKey {
-			t.Errorf("Error pushing right item %s", newKey)
+		if list[len(list)-1] != newItem {
+			t.Errorf("Error pushing right item %s", newItem)
 		}
 	})
 
