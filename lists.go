@@ -1,4 +1,4 @@
-package main
+package sider
 
 var lists = make(map[string][]string)
 
