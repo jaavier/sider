@@ -1,5 +1,9 @@
 package sider
 
+import (
+	"fmt"
+)
+
 var lists = make(map[string][]string)
 
 func ReadList(listName string) []string {
@@ -66,6 +70,6 @@ func IndexOf(listName, element string) (int, error) {
 				return index, nil
 			}
 		}
-	}
-	return 0, nil
+	}	
+	return 0, fmt.Errorf("error getting index of '%v'", element)
 }

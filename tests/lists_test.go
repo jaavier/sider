@@ -79,12 +79,12 @@ func TestLists(t *testing.T) {
 		var element1 string = "1"
 		var element2 string = "2"
 		var element3 string = "3"
-		var expected int = 0
+		// var expected int = 2
 		sider.LPush(key, element1)
 		sider.LPush(key, element2)
 		sider.LPush(key, element3)
-		if index, _ := sider.IndexOf(key, element3); index != expected {
-			t.Errorf("Error getting index %v", index)
+		if _, err := sider.IndexOf(key, element3); err != nil {
+			t.Errorf("Error getting index %v", err)
 		}
 	})
 }
