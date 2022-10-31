@@ -9,7 +9,6 @@ import (
 
 var pwd, _ = os.Getwd()
 
-
 func SaveFile(file string, content interface{}) bool {
 	parse, _ := json.Marshal(content)
 	if len(parse) > 0 {
@@ -21,7 +20,7 @@ func SaveFile(file string, content interface{}) bool {
 func ImportData() bool {
 	listsContent, errLists := ioutil.ReadFile(pwd + "/db/lists.json")
 	keysContent, errKeys := ioutil.ReadFile(pwd + "/db/keys.json")
-	
+
 	if errLists != nil || errKeys != nil {
 		return false
 	}
@@ -41,7 +40,7 @@ func ImportData() bool {
 func SaveData() {
 	for {
 		time.Sleep(2 * time.Second)
-		SaveFile(pwd + "/db/lists.json", lists)
-		SaveFile(pwd + "/db/keys.json", keys)
+		SaveFile(pwd+"/db/lists.json", lists)
+		SaveFile(pwd+"/db/keys.json", keys)
 	}
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/jaavier/sider"
 )
 
-
 func TestKeys(t *testing.T) {
 	t.Run("Add Keys", func(t *testing.T) {
 		var key string = "my-key"
