@@ -51,3 +51,10 @@ func Pop(options... string) interface{} {
 	}
 	return false
 }
+
+func LLen(key string) int {
+	if !isList(key) {
+		return 0
+	}
+	return len(lists[key])
+}
