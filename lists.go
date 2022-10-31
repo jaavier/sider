@@ -31,7 +31,7 @@ func RPush(key string, value string) (bool, error) {
 	return true, nil
 }
 
-func Pop(options... string) (string, error) {
+func Pop(options ...string) (string, error) {
 	var key string
 	var list []string
 	var popped string
@@ -39,7 +39,7 @@ func Pop(options... string) (string, error) {
 	if len(options) == 0 {
 		return "", fmt.Errorf("i need more parameters")
 	}
-	
+
 	key = options[0]
 
 	if _, err := LLen(key); err != nil {
@@ -53,7 +53,7 @@ func Pop(options... string) (string, error) {
 	}
 
 	if len(options) == 1 {
-		popped = list[len(list) - 1]
+		popped = list[len(list)-1]
 		lists[key] = append([]string{}, list[:len(list)-1]...)
 		return popped, nil
 	}
@@ -83,6 +83,6 @@ func IndexOf(listName, element string) (int, error) {
 				return index, nil
 			}
 		}
-	}	
+	}
 	return 0, fmt.Errorf("error getting index of '%v'", element)
 }

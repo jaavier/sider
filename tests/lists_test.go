@@ -75,7 +75,7 @@ func TestLists(t *testing.T) {
 		}
 	})
 
-	t.Run("Test IndexOf", func(t *testing.T){
+	t.Run("Test IndexOf", func(t *testing.T) {
 		var key string = "new-list-index-of"
 		var element1 string = "1"
 		var element2 string = "2"

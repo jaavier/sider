@@ -9,14 +9,14 @@ var ttlKeys = make(map[string]int64)
 var ttlLists = make(map[string]int64)
 
 func CheckTTL() {
-	for range time.Tick(1 * time.Second){
+	for range time.Tick(1 * time.Second) {
 		for keyName, timestamp := range ttlKeys {
 			if time.Now().Unix() > timestamp {
 				fmt.Printf("Key '%v' expired", keyName)
 				delete(keys, keyName)
 				delete(ttlKeys, keyName)
 			}
-		}	
+		}
 
 		for listName, timestamp := range ttlLists {
 			if time.Now().Unix() > timestamp {
@@ -24,7 +24,7 @@ func CheckTTL() {
 				delete(lists, listName)
 				delete(ttlLists, listName)
 			}
-		}	
+		}
 	}
 }
 
