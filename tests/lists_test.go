@@ -63,4 +63,14 @@ func TestLists(t *testing.T) {
 			t.Errorf("Error pop right item %s", key)
 		}
 	})
+
+	t.Run("Test Get List Length", func(t *testing.T) {
+		var key string = "elements"
+		var expected int = 2
+		sider.LPush(key, "item1")
+		sider.LPush(key, "item2")
+		if sider.LLen(key) != expected {
+			t.Errorf("Error get length")
+		}
+	})
 }

@@ -5,6 +5,7 @@ Sider is a in-memory database with persistence option. This is a personal projec
 
 - Read/Add keys 
 - Push/Pop lists (LEFT and RIGHT)
+- Get length of a list
 - Expire lists/keys 
 - Backup **lists** and **keys** in JSON files.
 - Import last backup when starting Sider again
@@ -35,6 +36,11 @@ sider.LPush(listName string, value string) bool
 # Push an item at right
 ```golang
 sider.RPush(listName string, value string) bool
+```
+
+# Get length of a list
+```golang
+sider.LLen(listName string) int
 ```
 
 # Read List
