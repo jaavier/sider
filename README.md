@@ -18,6 +18,10 @@ Sider is a in-memory database with persistence option. This is a personal projec
 3. Import in your code `import "github.com/jaavier/sider"`
 
 
+# IMPORTANT UPDATE 👾
+
+I updated all functions to return a value and a error (if there's one). If you cloned this project before, please update your dependencies executing `go get -u -d ./...` in your project's folder
+
 # Add Key
 
 ```golang
