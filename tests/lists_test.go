@@ -73,4 +73,18 @@ func TestLists(t *testing.T) {
 			t.Errorf("Error get length")
 		}
 	})
+
+	t.Run("Test IndexOf", func(t *testing.T){
+		var key string = "new-list-index-of"
+		var element1 string = "1"
+		var element2 string = "2"
+		var element3 string = "3"
+		// var expected int = 2
+		sider.LPush(key, element1)
+		sider.LPush(key, element2)
+		sider.LPush(key, element3)
+		if _, err := sider.IndexOf(key, element3); err != nil {
+			t.Errorf("Error getting index %v", err)
+		}
+	})
 }
