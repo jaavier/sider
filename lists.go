@@ -58,3 +58,14 @@ func LLen(key string) int {
 	}
 	return len(lists[key])
 }
+
+func IndexOf(listName, element string) (int, error) {
+	if isList(listName) {
+		for index, value := range lists[listName] {
+			if value == element {
+				return index, nil
+			}
+		}
+	}
+	return 0, nil
+}
