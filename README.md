@@ -21,27 +21,27 @@ Sider is a in-memory database with persistence option. This is a personal projec
 # Add Key
 
 ```golang
-sider.AddKey(key string, value string) bool
+sider.AddKey(key, value string) (bool, error)
 ```
 
 # Read Key
 ```golang
-sider.ReadKey(key string) interface{}
+sider.ReadKey(key string) (string, error)
 ```
 
 # Push an item at left
 ```golang
-sider.LPush(listName string, value string) bool
+sider.LPush(key string, value string) (bool, error)
 ```
 
 # Push an item at right
 ```golang
-sider.RPush(listName string, value string) bool
+sider.RPush(key string, value string) (bool, error)
 ```
 
 # Get length of a list
 ```golang
-sider.LLen(listName string) int
+sider.LLen(listName string) (int, error)
 ```
 
 # Get index of element in list
@@ -51,29 +51,29 @@ sider.IndexOf(listName string, element string) (int, error)
 
 # Read List
 ```golang
-sider.ReadList(listName string) []string
+sider.ReadList(listName string) ([]string, error)
 ```
 
 # Expire Key
 ```golang
-sider.ExpireKey(key string, timestamp int64) bool
+sider.ExpireKey(key string, timestamp int64) (bool, error)
 ```
 
 # Expire List
 ```golang
-sider.ExpireList(listName string, timestamp int64) bool
+sider.ExpireList(listName string, timestamp int64) (bool, error)
 ```
 
 # Pop list
 
 Pop at right
 ```golang
-sider.Pop(listName string) string
+sider.Pop(options... string) (string, error)
 ```
 
 Pop at left
 ```golang
-sider.Pop(listName string, "left") string
+sider.Pop(listName string, "left") (string, error)
 ```
 
 

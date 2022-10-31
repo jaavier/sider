@@ -17,8 +17,7 @@ func TestLists(t *testing.T) {
 		sider.LPush(key, item2)
 		sider.LPush(key, item3)
 		sider.LPush(key, item4)
-		var list []string = sider.ReadList(key)
-		if list[0] != item4 {
+		if list, err := sider.ReadList(key); err != nil && list[0] != item4 {
 			t.Errorf("Error pushing left item %s", item4)
 		}
 	})
@@ -27,8 +26,7 @@ func TestLists(t *testing.T) {
 		var key string = "my-list"
 		var newItem string = "0"
 		sider.RPush(key, newItem)
-		var list []string = sider.ReadList(key)
-		if list[len(list)-1] != newItem {
+		if list, err := sider.ReadList(key); err != nil && list[len(list)-1] != newItem {
 			t.Errorf("Error pushing right item %s", newItem)
 		}
 	})
@@ -36,30 +34,33 @@ func TestLists(t *testing.T) {
 	t.Run("Read List", func(t *testing.T) {
 		var key string = "my-list"
 		var expected []string = []string{"4", "3", "2", "1"}
-		var list []string = sider.ReadList(key)
-		for index := range expected {
-			if expected[index] != list[index] {
-				t.Errorf("Error reading list %s", key)
+		if list, err := sider.ReadList(key); err != nil {
+			t.Errorf("Error reading list %s", key)
+		} else {
+			for index := range expected {
+				if expected[index] != list[index] {
+					t.Errorf("Error reading list %s", key)
+				}
 			}
 		}
 	})
 
 	t.Run("Test Pop Left", func(t *testing.T) {
 		var key string = "my-list"
-		if sider.Pop(key, "left") != "4" {
+		if result, err := sider.Pop(key, "left"); err != nil && result != "4" {
 			t.Errorf("Error pop left item %s", key)
 		}
-		if sider.Pop(key, "left") != "3" {
+		if result, err := sider.Pop(key, "left"); err != nil && result != "3" {
 			t.Errorf("Error pop left item %s", key)
 		}
 	})
 
 	t.Run("Test Pop Right", func(t *testing.T) {
 		var key string = "my-list"
-		if sider.Pop(key) != "0" {
+		if result, err := sider.Pop(key); err != nil && result != "0" {
 			t.Errorf("Error pop right item %s", key)
 		}
-		if sider.Pop(key) != "1" {
+		if result, err := sider.Pop(key); err != nil && result != "1" {
 			t.Errorf("Error pop right item %s", key)
 		}
 	})
@@ -69,7 +70,7 @@ func TestLists(t *testing.T) {
 		var expected int = 2
 		sider.LPush(key, "item1")
 		sider.LPush(key, "item2")
-		if sider.LLen(key) != expected {
+		if result, err := sider.LLen(key); err != nil && result != expected {
 			t.Errorf("Error get length")
 		}
 	})
@@ -79,10 +80,11 @@ func TestLists(t *testing.T) {
 		var element1 string = "1"
 		var element2 string = "2"
 		var element3 string = "3"
+		var expected int = 0
 		sider.LPush(key, element1)
 		sider.LPush(key, element2)
 		sider.LPush(key, element3)
-		if _, err := sider.IndexOf(key, element3); err != nil {
+		if result, err := sider.IndexOf(key, element3); err != nil && result != expected {
 			t.Errorf("Error getting index %v", err)
 		}
 	})

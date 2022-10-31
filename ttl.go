@@ -30,12 +30,24 @@ func CheckTTL() {
 
 // TODO: Refactor "ExpireKey" and "ExpireList" to use only 1 function for expire
 
-func ExpireKey(keyName string, expirationTimestamp int64) bool {
+func ExpireKey(keyName string, expirationTimestamp int64) (bool, error) {
+	if !isKey(keyName) {
+		return false, fmt.Errorf("'%v' is not a valid key", keyName)
+	}
+	if expirationTimestamp <= time.Now().Unix() {
+		return false, fmt.Errorf("timestamp '%v' must be greater than now", expirationTimestamp)
+	}
 	ttlKeys[keyName] = expirationTimestamp
-	return true
+	return true, nil
 }
 
-func ExpireList(listName string, expirationTimestamp int64) bool {
+func ExpireList(listName string, expirationTimestamp int64) (bool, error) {
+	if !isList(listName) {
+		return false, fmt.Errorf("'%v' is not a valid list", listName)
+	}
+	if expirationTimestamp <= time.Now().Unix() {
+		return false, fmt.Errorf("timestamp '%v' must be greater than now", expirationTimestamp)
+	}
 	ttlLists[listName] = expirationTimestamp
-	return true
+	return true, nil
 }

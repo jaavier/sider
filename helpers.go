@@ -8,3 +8,12 @@ func isList(key string) bool {
 	}
 	return false
 }
+
+func isKey(key string) bool {
+	for k, _ := range lists {
+		if k == key {
+			return true
+		}
+	}
+	return false
+}
