@@ -2,14 +2,42 @@ package sider
 
 import (
 	"fmt"
+	"strconv"
 )
 
 var lists = make(map[string][]string)
 
-func ReadList(listName string) ([]string, error) {
+func GetList(options ...string) ([]string, error) {
+	var listName string
+
+	if len(options) == 0 {
+		return nil, fmt.Errorf("not enough arguments")
+	}
+
+	listName = options[0]
+
 	if !isList(listName) {
 		return []string{}, fmt.Errorf("'%v' is not a list", listName)
 	}
+
+	switch {
+	case len(options) == 2:
+		if start, err := strconv.Atoi(options[1]); err == nil {
+			return lists[listName][start:], nil
+		}
+	case len(options) == 3:
+		if start, errStart := strconv.Atoi(options[1]); errStart == nil {
+			if stop, errStop := strconv.Atoi(options[2]); errStop == nil {
+				if stop > len(lists[listName]) {
+					stop = len(lists[listName])
+				} else {
+					stop += 1
+				}
+				return lists[listName][start:stop], nil
+			}
+		}
+	}
+
 	return lists[listName], nil
 }
 
@@ -46,7 +74,7 @@ func Pop(options ...string) (string, error) {
 		return "", err
 	}
 
-	list, err := ReadList(key)
+	list, err := GetList(key)
 
 	if err != nil {
 		return "", err

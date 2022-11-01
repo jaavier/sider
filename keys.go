@@ -4,7 +4,7 @@ import "fmt"
 
 var keys = make(map[string]string)
 
-func AddKey(key, value string) (bool, error) {
+func Set(key, value string) (bool, error) {
 	if len(key) == 0 {
 		return false, fmt.Errorf("value '%s' cannot be empty", key)
 	}
@@ -17,7 +17,7 @@ func AddKey(key, value string) (bool, error) {
 	return true, nil
 }
 
-func ReadKey(key string) (string, error) {
+func Get(key string) (string, error) {
 	for k := range keys {
 		if k == key {
 			return keys[key], nil

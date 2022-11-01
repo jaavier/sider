@@ -25,12 +25,12 @@ I updated all functions to return a value and a error (if there's one). If you c
 # Add Key
 
 ```golang
-sider.AddKey(key, value string) (bool, error)
+sider.Set(key, value string) (bool, error)
 ```
 
 # Read Key
 ```golang
-sider.ReadKey(key string) (string, error)
+sider.Get(key string) (string, error)
 ```
 
 # Push an item at left
@@ -55,8 +55,9 @@ sider.IndexOf(listName string, element string) (int, error)
 
 # Read List
 ```golang
-sider.ReadList(listName string) ([]string, error)
+sider.GetList(listName string, start string, stop string) ([]string, error)
 ```
+**Parameters _start_ and _stop_ are optionals**
 
 # Expire Key
 ```golang
@@ -84,6 +85,5 @@ sider.Pop(listName string, "left") (string, error)
 # TODO
 
 - Add function to reverse lists
-- Add function to find elements in lists
 - Add os.Args to give the option to don't persist data
-
+- Add function to replace element in list (LSET)
