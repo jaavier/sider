@@ -51,8 +51,9 @@ sider.IndexOf(listName string, element string) (int, error)
 
 # Read List
 ```golang
-sider.GetList(listName string) ([]string, error)
+sider.GetList(listName string, start string, stop string) ([]string, error)
 ```
+**Parameters _start_ and _stop_ are optionals**
 
 # Expire Key
 ```golang
