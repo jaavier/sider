@@ -10,7 +10,7 @@ func TestKeys(t *testing.T) {
 	t.Run("Add Keys", func(t *testing.T) {
 		var key string = "my-key"
 		var value string = "my-value"
-		if result, err := sider.AddKey(key, value); err != nil && !result {
+		if result, err := sider.Set(key, value); err != nil && !result {
 			t.Errorf("Error adding key '%v'", key)
 		}
 	})
@@ -18,7 +18,7 @@ func TestKeys(t *testing.T) {
 	t.Run("Read Key", func(t *testing.T) {
 		var key string = "my-key"
 		var expected string = "my-value"
-		if result, err := sider.ReadKey(key); err != nil && result != expected {
+		if result, err := sider.Get(key); err != nil && result != expected {
 			t.Errorf("Error reading key '%v'", key)
 		}
 	})

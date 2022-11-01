@@ -17,7 +17,7 @@ func TestLists(t *testing.T) {
 		sider.LPush(key, item2)
 		sider.LPush(key, item3)
 		sider.LPush(key, item4)
-		if list, err := sider.ReadList(key); err != nil && list[0] != item4 {
+		if list, err := sider.GetList(key); err != nil && list[0] != item4 {
 			t.Errorf("Error pushing left item %s", item4)
 		}
 	})
@@ -26,7 +26,7 @@ func TestLists(t *testing.T) {
 		var key string = "my-list"
 		var newItem string = "0"
 		sider.RPush(key, newItem)
-		if list, err := sider.ReadList(key); err != nil && list[len(list)-1] != newItem {
+		if list, err := sider.GetList(key); err != nil && list[len(list)-1] != newItem {
 			t.Errorf("Error pushing right item %s", newItem)
 		}
 	})
@@ -34,9 +34,54 @@ func TestLists(t *testing.T) {
 	t.Run("Read List", func(t *testing.T) {
 		var key string = "my-list"
 		var expected []string = []string{"4", "3", "2", "1"}
-		if list, err := sider.ReadList(key); err != nil {
+		if list, err := sider.GetList(key); err != nil {
 			t.Errorf("Error reading list %s", key)
 		} else {
+			for index := range expected {
+				if expected[index] != list[index] {
+					t.Errorf("Error reading list %s", key)
+				}
+			}
+		}
+	})
+
+	t.Run("Read List with start", func(t *testing.T) {
+		var key string = "my-list-start"
+		var elements []string = []string{"4", "3", "2", "1"}
+		var expected []string = []string{"3", "2", "1"}
+		var start string = "1"
+		for _, e := range elements {
+			sider.RPush(key, e)
+		}
+		if list, err := sider.GetList(key, start); err != nil {
+			t.Errorf("Error reading list %s", key)
+		} else {
+			if len(list) != len(expected) {
+				t.Errorf("Error reading list '%s' with start '%s'", key, start)
+			}
+			for index := range expected {
+				if expected[index] != list[index] {
+					t.Errorf("Error reading list %s", key)
+				}
+			}
+		}
+	})
+
+	t.Run("Read List with start and stop", func(t *testing.T) {
+		var key string = "my-list-start-stop"
+		var elements []string = []string{"4", "3", "2", "1"}
+		var expected []string = []string{"3", "2"}
+		var start string = "1"
+		var stop string = "2"
+		for _, e := range elements {
+			sider.RPush(key, e)
+		}
+		if list, err := sider.GetList(key, start, stop); err != nil {
+			t.Errorf("Error reading list %s", key)
+		} else {
+			if len(list) != len(expected) {
+				t.Errorf("Error reading list '%s' with start '%s' and stop '%s", key, start, stop)
+			}
 			for index := range expected {
 				if expected[index] != list[index] {
 					t.Errorf("Error reading list %s", key)
