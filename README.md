@@ -81,6 +81,5 @@ sider.Pop(listName string, "left") (string, error)
 # TODO
 
 - Add function to reverse lists
-- Add function to find elements in lists
 - Add os.Args to give the option to don't persist data
-
+- Add function to replace element in list (LSET)
