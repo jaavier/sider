@@ -4,6 +4,7 @@ Sider is a in-memory database with persistence option. This is a personal projec
 # What can Sider do?
 
 - Read/Add keys 
+- Read List (complete or by range)
 - Push/Pop lists (LEFT and RIGHT)
 - Get length of a list
 - Get index of element in list
