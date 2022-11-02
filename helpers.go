@@ -27,5 +27,5 @@ func notEnoughArguments(errors []string) bool {
 			fmt.Printf("\t[%d] %s\n", index+1, e)
 		}
 	}
-	return len(errors) > 0 
+	return len(errors) > 0
 }

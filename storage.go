@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 )
 
-var pwd, _ = os.Getwd()
+var path = "/tmp"
 
 func SaveFile(file string, content interface{}) bool {
 	parse, _ := json.Marshal(content)
@@ -18,7 +17,7 @@ func SaveFile(file string, content interface{}) bool {
 	return true
 }
 
-func ImportData(path string) bool {
+func ImportData() bool {
 	if len(path) > 0 {
 		listsContent, errLists := ioutil.ReadFile(fmt.Sprintf("%s/lists.json", path))
 		keysContent, errKeys := ioutil.ReadFile(fmt.Sprintf("%s/keys.json", path))
@@ -43,14 +42,10 @@ func ImportData(path string) bool {
 	}
 }
 
-func SaveData(path string) { // goroutine
-	if len(path) > 0{
-		for {
-			time.Sleep(2 * time.Second)
-			SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
-			SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
-		}	
-	} else {
-		fmt.Println("Path not specified = don't save data")
+func SaveData() { // execute as goroutine
+	for {
+		time.Sleep(2 * time.Second)
+		SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
+		SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
 	}
 }
