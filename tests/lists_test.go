@@ -102,10 +102,10 @@ func TestLists(t *testing.T) {
 
 	t.Run("Test Pop Right", func(t *testing.T) {
 		var key string = "my-list"
-		if result, err := sider.Pop(key); err != nil && result != "0" {
+		if result, err := sider.Pop(key, "right"); err != nil && result != "0" {
 			t.Errorf("Error pop right item %s", key)
 		}
-		if result, err := sider.Pop(key); err != nil && result != "1" {
+		if result, err := sider.Pop(key, "right"); err != nil && result != "1" {
 			t.Errorf("Error pop right item %s", key)
 		}
 	})
@@ -134,7 +134,7 @@ func TestLists(t *testing.T) {
 		}
 	})
 
-	t.Run("Test Replace List", func (t *testing.T) {
+	t.Run("Test Replace List", func(t *testing.T) {
 		var listName string = "replace-list"
 		var expected string = "jaavier"
 		sider.LPush(listName, "1")
@@ -145,7 +145,7 @@ func TestLists(t *testing.T) {
 		if _, err := sider.ReplaceList(listName, 4, expected); err != nil {
 			t.Errorf("Error replacing %v", err)
 		}
-		if res, err := sider.Pop(listName); err != nil {
+		if res, err := sider.Pop(listName, "right"); err != nil {
 			t.Errorf("Error getting list after replace %v", err)
 		} else {
 			if res != expected {
