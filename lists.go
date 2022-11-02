@@ -76,14 +76,14 @@ func Pop(listName string, direction string) (string, error) {
 		return "", fmt.Errorf("not enough arguments")
 	}
 
-	if _, err := LLen(listName); err != nil {
-		return "", err
-	}
-
 	list, err := GetList(listName)
 
 	if err != nil {
 		return "", err
+	}
+
+	if len(list) == 0 {
+		return "", fmt.Errorf("list '%s' is empty", listName)
 	}
 
 	switch {
@@ -94,10 +94,7 @@ func Pop(listName string, direction string) (string, error) {
 		popped = list[0]
 		lists[listName] = append([]string{}, list[1:]...)
 	}
-
 	return popped, nil
-
-	return "", fmt.Errorf("error while pop list '%v' at '%v'", listName, direction)
 }
 
 func LLen(key string) (int, error) {
