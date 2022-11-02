@@ -4,6 +4,7 @@ Sider is a in-memory database with persistence option. This is a personal projec
 # What can Sider do?
 
 - Read/Add keys 
+- Read List (complete or by range)
 - Push/Pop lists (LEFT and RIGHT)
 - Get length of a list
 - Get index of element in list
@@ -17,6 +18,10 @@ Sider is a in-memory database with persistence option. This is a personal projec
 2. Install dependency with `go get -u github.com/jaavier/sider`
 3. Import in your code `import "github.com/jaavier/sider"`
 
+
+# IMPORTANT UPDATE 👾
+
+I updated all functions to return a value and a error (if there's one). If you cloned this project before, please update your dependencies executing `go get -u -d ./...` in your project's folder
 
 # Add Key
 
@@ -54,7 +59,6 @@ sider.IndexOf(listName string, element string) (int, error)
 sider.ReplaceList(listName string, index int, element string) (bool, error)
 ```
 
-
 # Read List
 ```golang
 sider.GetList(listName string, start string, stop string) ([]string, error)
@@ -75,7 +79,7 @@ sider.ExpireList(listName string, timestamp int64) (bool, error)
 
 Pop at right
 ```golang
-sider.Pop(options... string) (string, error)
+sider.Pop(options ...string) (string, error)
 ```
 
 Pop at left
