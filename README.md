@@ -79,7 +79,7 @@ sider.ExpireList(listName string, timestamp int64) (bool, error)
 
 Pop at right
 ```golang
-sider.Pop(options... string) (string, error)
+sider.Pop(options ...string) (string, error)
 ```
 
 Pop at left
