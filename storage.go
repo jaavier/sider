@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 )
 
-var pwd, _ = os.Getwd()
+var path = "/tmp"
 
 func SaveFile(file string, content interface{}) bool {
 	parse, _ := json.Marshal(content)
@@ -18,39 +17,41 @@ func SaveFile(file string, content interface{}) bool {
 	return true
 }
 
-func ImportData(path string) bool {
-	if len(path) > 0 {
-		listsContent, errLists := ioutil.ReadFile(fmt.Sprintf("%s/lists.json", path))
-		keysContent, errKeys := ioutil.ReadFile(fmt.Sprintf("%s/keys.json", path))
-	
-		if errLists != nil || errKeys != nil {
-			return false
+func ImportData(customPath ...string) bool {
+	if len(customPath) > 0 {
+		if len(customPath[0]) > 0 {
+			path = customPath[0]
 		}
-	
-		json_lists := make(map[string][]string)
-		json_keys := make(map[string]string)
-	
-		json.Unmarshal(listsContent, &json_lists)
-		json.Unmarshal(keysContent, &json_keys)
-	
-		lists = json_lists
-		keys = json_keys
-	
-		return true
-	} else {
-		fmt.Println("Path not specified = don't import data")
+	}
+	listsContent, errLists := ioutil.ReadFile(fmt.Sprintf("%s/lists.json", path))
+	keysContent, errKeys := ioutil.ReadFile(fmt.Sprintf("%s/keys.json", path))
+
+	if errLists != nil || errKeys != nil {
 		return false
 	}
+
+	json_lists := make(map[string][]string)
+	json_keys := make(map[string]string)
+
+	json.Unmarshal(listsContent, &json_lists)
+	json.Unmarshal(keysContent, &json_keys)
+
+	lists = json_lists
+	keys = json_keys
+
+	return true
 }
 
-func SaveData(path string) { // goroutine
-	if len(path) > 0{
-		for {
-			time.Sleep(2 * time.Second)
-			SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
-			SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
-		}	
-	} else {
-		fmt.Println("Path not specified = don't save data")
+func SaveData(customPath ...string) { // execute as goroutine
+	if len(customPath) > 0 {
+		if len(customPath[0]) > 0 {
+			path = customPath[0]
+		}
+	}
+	fmt.Printf("Store data at folder '%s'\n", path)
+	for {
+		time.Sleep(2 * time.Second)
+		SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
+		SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
 	}
 }
