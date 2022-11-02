@@ -114,3 +114,29 @@ func IndexOf(listName, element string) (int, error) {
 	}
 	return 0, fmt.Errorf("error getting index of '%v'", element)
 }
+
+func ReplaceList(listName string, index int, newElement string) (bool, error) {
+	var errors []string
+
+	switch {
+	case len(listName) == 0:
+		errors = append(errors, "listName")
+	case len(newElement) == 0:
+		errors = append(errors, "newElement")
+	}
+
+	if len(errors) > 0 {
+		notEnoughArguments(errors)
+		return false, fmt.Errorf("not enough arguments")
+	}
+
+	if list, err := GetList(listName); err != nil {
+		return false, fmt.Errorf("error trying to read list: %v", err)
+	} else {
+		if len(list) > index {
+			lists[listName][index] = newElement
+		}
+	}
+
+	return true, nil
+}

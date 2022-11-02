@@ -1,0 +1,35 @@
+package sider
+
+
+func Execute(instructions ...string) (interface{}, error) {
+	var instruction = instructions[0]
+	switch {
+	case instruction == "LPUSH":
+		var key string = instructions[1]
+		var values = instructions[2:]
+	case instruction == "LPOP":
+		var key string = instructions[1]
+		var value = instructions[2]
+	case instruction == "RPUSH":
+		var key string = instructions[1]
+		var values = instructions[2:]
+	case instruction == "RPOP":
+		var key string = instructions[1]
+		var value = instructions[2]
+	case instruction == "SET":
+		var key string = instructions[1]
+		var value = instructions[2]
+		var expire = instructions[3]
+	case instruction == "GET":
+		var key string = instructions[1]
+		var value = instructions[2]
+	case instruction == "GETDEL":
+		var key string = instructions[1]
+		var value = instructions[2]
+	case instruction == "LRANGE":
+		var key string = instructions[1]
+		var start = instructions[2]
+		var stop = instructions[2]
+	}
+	return false, nil
+}

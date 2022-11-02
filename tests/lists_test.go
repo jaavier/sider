@@ -125,12 +125,32 @@ func TestLists(t *testing.T) {
 		var element1 string = "1"
 		var element2 string = "2"
 		var element3 string = "3"
-		var expected int = 0
+		var expected int = 2
 		sider.LPush(key, element1)
 		sider.LPush(key, element2)
 		sider.LPush(key, element3)
-		if result, err := sider.IndexOf(key, element3); err != nil && result != expected {
+		if result, err := sider.IndexOf(key, element1); err != nil && result != expected {
 			t.Errorf("Error getting index %v", err)
+		}
+	})
+
+	t.Run("Test Replace List", func (t *testing.T) {
+		var listName string = "replace-list"
+		var expected string = "jaavier"
+		sider.LPush(listName, "1")
+		sider.LPush(listName, "2")
+		sider.LPush(listName, "3")
+		sider.LPush(listName, "4")
+		sider.LPush(listName, "5")
+		if _, err := sider.ReplaceList(listName, 4, expected); err != nil {
+			t.Errorf("Error replacing %v", err)
+		}
+		if res, err := sider.Pop(listName); err != nil {
+			t.Errorf("Error getting list after replace %v", err)
+		} else {
+			if res != expected {
+				t.Errorf("Error replacing element. %s is different from %s", res, expected)
+			}
 		}
 	})
 }
