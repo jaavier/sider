@@ -72,8 +72,7 @@ func Pop(listName string, direction string) (string, error) {
 		errors = append(errors, "direction")
 	}
 
-	if len(errors) > 0 {
-		notEnoughArguments(errors)
+	if notEnoughArguments(errors) {
 		return "", fmt.Errorf("not enough arguments")
 	}
 

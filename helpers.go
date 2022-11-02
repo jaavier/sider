@@ -20,12 +20,12 @@ func isKey(key string) bool {
 	return false
 }
 
-func notEnoughArguments(fields []string) bool {
-	if len(fields) > 0 {
+func notEnoughArguments(errors []string) bool {
+	if len(errors) > 0 {
 		fmt.Println("Missing required arguments:")
-		for index, field := range fields {
-			fmt.Printf("\t[%d] %s\n", index+1, field)
+		for index, e := range errors {
+			fmt.Printf("\t[%d] %s\n", index+1, e)
 		}
 	}
-	return len(fields) > 0 
+	return len(errors) > 0 
 }
