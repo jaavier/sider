@@ -49,6 +49,12 @@ sider.LLen(listName string) (int, error)
 sider.IndexOf(listName string, element string) (int, error)
 ```
 
+# Replace element in list
+```golang
+sider.ReplaceList(listName string, index int, element string) (bool, error)
+```
+
+
 # Read List
 ```golang
 sider.GetList(listName string, start string, stop string) ([]string, error)
