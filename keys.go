@@ -11,9 +11,9 @@ func Set(key, value string) (bool, error) {
 	if len(value) == 0 {
 		return false, fmt.Errorf("value '%s' cannot be empty", value)
 	}
-
-	keys[key] = value
-
+	if keys[key] != value {
+		keys[key] = value
+	}	
 	return true, nil
 }
 
