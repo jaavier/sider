@@ -49,8 +49,7 @@ func SaveData(customPath ...string) { // execute as goroutine
 		}
 	}
 	fmt.Printf("Store data at folder '%s'\n", path)
-	for {
-		time.Sleep(2 * time.Second)
+	for range time.Tick(10 * time.Second) {
 		SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
 		SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
 	}
