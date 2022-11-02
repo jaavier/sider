@@ -2,6 +2,7 @@ package sider
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"time"
@@ -17,30 +18,39 @@ func SaveFile(file string, content interface{}) bool {
 	return true
 }
 
-func ImportData() bool {
-	listsContent, errLists := ioutil.ReadFile(pwd + "/db/lists.json")
-	keysContent, errKeys := ioutil.ReadFile(pwd + "/db/keys.json")
-
-	if errLists != nil || errKeys != nil {
+func ImportData(path string) bool {
+	if len(path) > 0 {
+		listsContent, errLists := ioutil.ReadFile(fmt.Sprintf("%s/lists.json", path))
+		keysContent, errKeys := ioutil.ReadFile(fmt.Sprintf("%s/keys.json", path))
+	
+		if errLists != nil || errKeys != nil {
+			return false
+		}
+	
+		json_lists := make(map[string][]string)
+		json_keys := make(map[string]string)
+	
+		json.Unmarshal(listsContent, &json_lists)
+		json.Unmarshal(keysContent, &json_keys)
+	
+		lists = json_lists
+		keys = json_keys
+	
+		return true
+	} else {
+		fmt.Println("Path not specified = don't import data")
 		return false
 	}
-
-	json_lists := make(map[string][]string)
-	json_keys := make(map[string]string)
-
-	json.Unmarshal(listsContent, &json_lists)
-	json.Unmarshal(keysContent, &json_keys)
-
-	lists = json_lists
-	keys = json_keys
-
-	return true
 }
 
-func SaveData() {
-	for {
-		time.Sleep(2 * time.Second)
-		SaveFile(pwd+"/db/lists.json", lists)
-		SaveFile(pwd+"/db/keys.json", keys)
+func SaveData(path string) { // goroutine
+	if len(path) > 0{
+		for {
+			time.Sleep(2 * time.Second)
+			SaveFile(fmt.Sprintf("%s/lists.json", path), lists)
+			SaveFile(fmt.Sprintf("%s/keys.json", path), keys)
+		}	
+	} else {
+		fmt.Println("Path not specified = don't save data")
 	}
 }
