@@ -23,6 +23,18 @@ Sider is a in-memory database with persistence option. This is a personal projec
 
 I updated all functions to return a value and a error (if there's one). If you cloned this project before, please update your dependencies executing `go get -u -d ./...` in your project's folder
 
+# Persist data on disk
+```golang
+go sider.SaveData(customPath string) // execute as goroutine
+```
+***Important***: If you call `sider.SaveData()` without param, it will store data at /tmp
+
+# Import data from last session
+```golang
+go sider.ImportData(customPath string) // execute as goroutine
+```
+***Important***: If you call `sider.ImportData()` without param, it will find data at /tmp
+
 # Add Key
 
 ```golang
@@ -91,5 +103,4 @@ sider.Pop(listName string, "left") (string, error)
 # TODO
 
 - Add function to reverse lists
-- Add os.Args to give the option to don't persist data
 - Add function to replace element in list (LSET)
