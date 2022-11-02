@@ -59,42 +59,45 @@ func RPush(key string, value string) (bool, error) {
 	return true, nil
 }
 
-func Pop(options ...string) (string, error) {
-	var key string
+func Pop(listName string, direction string) (string, error) {
 	var list []string
 	var popped string
+	var errors []string
 
-	if len(options) == 0 {
-		return "", fmt.Errorf("i need more parameters")
+	if len(listName) == 0 {
+		errors = append(errors, "listName")
 	}
 
-	key = options[0]
+	if direction != "left" && direction != "right" {
+		errors = append(errors, "direction")
+	}
 
-	if _, err := LLen(key); err != nil {
+	if notEnoughArguments(errors) {
+		return "", fmt.Errorf("not enough arguments")
+	}
+
+	if _, err := LLen(listName); err != nil {
 		return "", err
 	}
 
-	list, err := GetList(key)
+	list, err := GetList(listName)
 
 	if err != nil {
 		return "", err
 	}
 
-	if len(options) == 1 {
+	switch {
+	case direction == "right":
 		popped = list[len(list)-1]
-		lists[key] = append([]string{}, list[:len(list)-1]...)
-		return popped, nil
-	}
-
-	var direction string = options[1]
-
-	if direction == "left" {
+		lists[listName] = append([]string{}, list[:len(list)-1]...)
+	case direction == "left":
 		popped = list[0]
-		lists[key] = append([]string{}, list[1:]...)
-		return popped, nil
+		lists[listName] = append([]string{}, list[1:]...)
 	}
 
-	return "", fmt.Errorf("error while pop list '%v' at '%v'", key, direction)
+	return popped, nil
+
+	return "", fmt.Errorf("error while pop list '%v' at '%v'", listName, direction)
 }
 
 func LLen(key string) (int, error) {
