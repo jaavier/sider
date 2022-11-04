@@ -153,4 +153,19 @@ func TestLists(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("Test Count List", func(t *testing.T) {
+		var listName string = "countable"
+		var expected int = 3
+		sider.RPush(listName, "1 item")
+		sider.RPush(listName, "2 item")
+		sider.RPush(listName, "3 item")
+		if count, err := sider.CountList(listName); err != nil {
+			t.Errorf("Error CountList function %v", err)
+		} else {
+			if count != expected {
+				t.Errorf("Value count %v != %v", count, expected)
+			}
+		}
+	})
 }

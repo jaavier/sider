@@ -11,7 +11,7 @@ func GetList(options ...string) ([]string, error) {
 	var listName string
 
 	if len(options) == 0 {
-		return nil, fmt.Errorf("not enough arguments")
+		return []string{}, fmt.Errorf("not enough arguments")
 	}
 
 	listName = options[0]
@@ -139,4 +139,9 @@ func ReplaceList(listName string, index int, newElement string) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func CountList(listName string) (int, error) {
+	list, err := GetList(listName)
+	return len(list), err
 }
