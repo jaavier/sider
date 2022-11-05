@@ -145,3 +145,13 @@ func CountList(listName string) (int, error) {
 	list, err := GetList(listName)
 	return len(list), err
 }
+
+func DeleteList(listName string) error {
+	for key, _ := range lists {
+		if key == listName {
+			delete(lists, listName)
+			return nil
+		}
+	}
+	return fmt.Errorf("list '%s' doesn't exist", listName)
+}

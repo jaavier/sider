@@ -23,4 +23,11 @@ func TestKeys(t *testing.T) {
 		}
 	})
 
+	t.Run("Delete Key", func(t *testing.T) {
+		var newKey string = "delete-key"
+		sider.Set(newKey, "value")
+		if err := sider.DeleteKey(newKey); err != nil {
+			t.Errorf("Error deleting key '%s'", newKey)
+		}
+	})
 }
