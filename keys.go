@@ -25,3 +25,12 @@ func Get(key string) (string, error) {
 	}
 	return "", fmt.Errorf("key '%s' not found", key)
 }
+
+func DeleteKey(key string) error {
+	value, _ := Get(key)
+	if len(value) > 0 {
+		delete(keys, key)
+		return nil
+	}
+	return fmt.Errorf("key '%s' doesn't exist", key)
+}	

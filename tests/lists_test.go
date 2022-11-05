@@ -168,4 +168,12 @@ func TestLists(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("Delete List", func(t *testing.T) {
+		var newList string = "my-list-to-delete"
+		sider.LPush(newList, "element")
+		if err := sider.DeleteList(newList); err != nil {
+			t.Errorf("error: %v", err)
+		}
+	})
 }
