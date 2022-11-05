@@ -155,3 +155,33 @@ func DeleteList(listName string) error {
 	}
 	return fmt.Errorf("list '%s' doesn't exist", listName)
 }
+
+func DeleteItemByContent(listName string, item string) bool {
+	var list, err = GetList(listName)
+	if err != nil {
+		return false
+	}
+	var newList []string
+	for _, value := range list {
+		if value != item {
+			newList = append(newList, value)
+		}
+	}
+	lists[listName] = newList
+	return true
+}
+
+func DeleteItemByIndex(listName string, index int) bool {
+	var list, err = GetList(listName)
+	if err != nil {
+		return false
+	}
+	var newList []string
+	for i, value := range list {
+		if i != index {
+			newList = append(newList, value)
+		}
+	}
+	lists[listName] = newList
+	return true
+}

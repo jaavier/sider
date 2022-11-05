@@ -176,4 +176,32 @@ func TestLists(t *testing.T) {
 			t.Errorf("error: %v", err)
 		}
 	})
+
+	t.Run("Delete item from list by content", func(t *testing.T) {
+		var listName string = "tmp-list-with-item"
+		var newItem string = "delete-me"
+		sider.RPush(listName, newItem)
+		if sider.DeleteItemByContent(listName, newItem) == false {
+			t.Errorf("Error deleting item: %v", newItem)
+		}
+		if result, _ := sider.GetList(listName); len(result) != 0 {
+			t.Errorf("[2] Error deleting item: %s", newItem)
+		}
+	})
+
+	t.Run("Delete item from list by index", func(t *testing.T) {
+		var listName string = "delete-list-by-index"
+		var newItem string = "delete-item"
+		sider.RPush(listName, newItem)
+		if index, err := sider.IndexOf(listName, newItem); err != nil {
+			t.Errorf("error finding index for item: %s", newItem)
+		} else {
+			if sider.DeleteItemByIndex(listName, index) == false {
+				t.Errorf("[2] Error deleting item by index: %s", newItem)
+			}
+			if result, _ := sider.GetList(listName); len(result) != 0 {
+				t.Errorf("[3] Error deleting item: %s", newItem)
+			}	
+		}
+	})
 }
