@@ -10,11 +10,13 @@ import (
 var path = "/tmp"
 
 func SaveFile(file string, content interface{}) bool {
-	parse, _ := json.Marshal(content)
-	if len(parse) > 0 {
+	parse, err := json.Marshal(content)
+	if err != nil {
+		return false
+	} else {
 		ioutil.WriteFile(file, parse, 0644)
+		return true
 	}
-	return true
 }
 
 func ImportData(customPath ...string) bool {
