@@ -9,6 +9,11 @@ Sider is a in-memory database with persistence option. This is a personal projec
 - Get length of a list
 - Get index of element in list
 - Expire lists/keys 
+- Get length of list
+- Delete key
+- Delete list
+- Delete item from list by index
+- Delete item from list by its content
 - Backup **lists** and **keys** in JSON files.
 - Import last backup when starting Sider again
 
@@ -99,6 +104,31 @@ Pop at left
 sider.Pop(listName string, "left") (string, error)
 ```
 
+# Get list's length
+```golang
+func CountList(listName string) (int, error)
+```
+
+# Delete key
+```golang
+func DeleteKey(key string) error
+```
+
+# Delete list
+```golang
+func DeleteList(listName string) error
+```
+
+# Delete item from list by its content
+```golang
+func DeleteItemByContent(listName string, item string) bool
+```
+
+# Delete item from list by its index
+```golang
+func DeleteItemByIndex(listName string, index int) bool
+```
+If you don't know the index, you can find it with ```sider.IndexOf```
 
 # TODO
 
