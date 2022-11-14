@@ -12,3 +12,6 @@ func Decr(key string) int64 {
 	return counter[key]
 }
 
+func GetCounter(key string) int64 {
+	return counter[key]
+}
