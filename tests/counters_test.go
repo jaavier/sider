@@ -30,4 +30,13 @@ func TestCounters(t *testing.T) {
 			t.Errorf("Error incrementing key %s", key)
 		}
 	})
+
+	t.Run("Get counter", func(t *testing.T) {
+		var key = "counter"
+		var expected int64 = 1
+		sider.Incr(key)
+		if sider.GetCounter(key) != expected {
+			t.Errorf("Error getting counter %s", key)
+		}
+	})
 }
